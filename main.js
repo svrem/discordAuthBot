@@ -3,40 +3,45 @@ const fs = require("fs");
 const client = new discord.Client();
 
 let channelNames = [];
-let admins = fs.readFile("./admins.json", (err, data) => {
-  return data;
+let admins;
+fs.readFile("admins.json", "utf8", (err, data) => {
+  admins = JSON.parse(data);
+  main();
 });
 
-console.log(data);
+const main = () => {
+  console.log(admins);
 
-client.once("ready", () => {
-  console.log("Ready!");
-});
+  client.once("ready", () => {
+    console.log("Ready!");
+  });
 
-client.on("message", (message) => {
-  console.log(message.channel.name);
-  const messageSplit = message.content.split(" ");
-  console.log(messageSplit);
+  client.on("message", (message) => {
+    console.log(message.channel.name);
+    const messageSplit = message.content.split(" ");
+    console.log(messageSplit);
 
-  if (messageSplit[0] === "!auth") {
-    if (admins.includes(message.author.id)) {
-      console.log("wow admin");
+    if (messageSplit[0] === "!auth") {
+      if (admins.includes(message.author.id)) {
+        console.log("wow admin");
 
-      if (messageSplit[1] === "add-admin") {
-        if (client.users.cache.get(messageSplit[2])) {
-          admins.push(messageSplit[2]);
-          message.channel.send(
-            `Added User ${client.users.cache.get(messageSplit[2])} to admins!`
-          );
-          console.log(admins);
-        } else {
-          message.channel.send("Can't find user!");
+        if (messageSplit[1] === "add-admin") {
+          if (client.users.cache.get(messageSplit[2])) {
+            admins.push(messageSplit[2]);
+            message.channel.send(
+              `Added User ${client.users.cache.get(messageSplit[2])} to admins!`
+            );
+
+            fs.writeFile("admins.json", JSON.stringify(admins));
+          } else {
+            message.channel.send("Can't find user!");
+          }
         }
+      } else {
+        message.channel.send("Insignificant authentication");
       }
-    } else {
-      message.channel.send("Insignificant authentication");
     }
-  }
-});
-// console.log(process.env);
-client.login(process.env.token);
+  });
+  // console.log(process.env);
+  client.login(process.env.token);
+};
