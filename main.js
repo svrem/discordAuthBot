@@ -1,8 +1,13 @@
 const discord = require("discord.js");
+const fs = require("fs");
 const client = new discord.Client();
 
 let channelNames = [];
-let admins = ["515843505512513536"];
+let admins = fs.readFile("./admins.json", (err, data) => {
+  return data;
+});
+
+console.log(data);
 
 client.once("ready", () => {
   console.log("Ready!");
