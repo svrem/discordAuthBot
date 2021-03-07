@@ -10,7 +10,7 @@ fs.readFile("admins.json", "utf8", (err, data) => {
 });
 
 const main = () => {
-  console.log(admins);
+  let mod = message.guild.roles.cache.find((role) => role.name === "Moderator");
 
   client.once("ready", () => {
     console.log("Ready!");
@@ -22,7 +22,7 @@ const main = () => {
     console.log(messageSplit);
 
     if (messageSplit[0] === "!auth") {
-      if (admins.includes(message.author.id)) {
+      if (message.member.roles.cache.has(mod.id)) {
         console.log("wow admin");
 
         if (messageSplit[1] === "add-admin") {
