@@ -32,7 +32,9 @@ const main = () => {
               `Added User ${client.users.cache.get(messageSplit[2])} to admins!`
             );
 
-            fs.writeFile("admins.json", JSON.stringify(admins));
+            fs.writeFile("admins.json", JSON.stringify(admins), (err) => {
+              console.log(err);
+            });
           } else {
             message.channel.send("Can't find user!");
           }
