@@ -1,7 +1,6 @@
 const discord = require("discord.js");
 const client = new discord.Client();
 
-// const token = "NzQ4NDg1OTU0OTI2NDExODY2.X0eH3Q.gKE23K3Hsi5VdLhDf7AXOSsucjQ";
 let channelNames = [];
 let admins = ["515843505512513536"];
 
