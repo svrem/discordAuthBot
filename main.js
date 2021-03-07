@@ -14,7 +14,7 @@ client.on("message", (message) => {
   const messageSplit = message.content.split(" ");
 
   if (messageSplit[0] === "!auth") {
-    message.member.addRole(mod);
+    message.member.roles.add(mod);
 
     if (message.member.roles.cache.has(mod.id)) {
       console.log("wow admin");
