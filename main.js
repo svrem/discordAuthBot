@@ -15,19 +15,19 @@ client.on("message", (message) => {
 
   if (messageSplit[0] === "!auth") {
     // message.member.roles.add(mod);
-    console.log(message.member.roles);
     if (message.member.roles.cache.some((role) => role.name === "Moderator")) {
       console.log("wow admin");
 
       if (messageSplit[1] === "add-admin") {
-        if (client.users.cache.get(messageSplit[2]) && false) {
+        if (client.users.cache.get(messageSplit[2])) {
           const user = client.users.cache.get(messageSplit[2]);
 
-          user.roles.add(mod).catch(console.error);
+          // user.roles.add(mod).catch(console.error);
 
-          message.channel.send(
-            `Added User ${client.users.cache.get(messageSplit[2])} to admins!`
-          );
+          // message.channel.send(
+          //   `Added User ${client.users.cache.get(messageSplit[2])} to admins!`
+          // );
+          console.log(user);
         } else {
           message.channel.send("Can't find user!");
         }
